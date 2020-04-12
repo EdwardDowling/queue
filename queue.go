@@ -221,3 +221,14 @@ func (q *Queue) Remove(elem interface{}) bool {
 	delete(q.items, id)
 	return true
 }
+
+// Returns a slice of the items in the queue
+func (q *Queue) Items() []interface{} {
+	q.mutex.Lock()
+	defer q.mutex.Unlock()
+	ret := []interface{}{}
+	for _, v := range q.items {
+		ret = append(ret, v)
+	}
+	return ret
+}
